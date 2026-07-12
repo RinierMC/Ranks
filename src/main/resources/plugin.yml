@@ -1,0 +1,38 @@
+name: Ranks
+main: org.powernukkitx.ranks.Main
+version: "1.0.0"
+api: [ "3.0.0" ]
+author: 2kMcFloat
+description: Ranks Plugin with permission management
+
+permissions:
+  ranks.command:
+    description: Base permission for /rank
+    default: op
+  ranks.command.create:
+    description: Create a new rank
+    default: op
+  ranks.command.delete:
+    description: Delete a rank
+    default: op
+  ranks.command.give:
+    description: Give a rank to a player
+    default: op
+  ranks.command.remove:
+    description: Remove a rank from a player
+    default: op
+  ranks.command.list:
+    description: List all ranks
+    default: op
+  ranks.command.info:
+    description: View rank details
+    default: op
+  ranks.command.perms.add:
+    description: Add a permission to a rank
+    default: op
+  ranks.command.perms.remove:
+    description: Remove a permission from a rank
+    default: op
+  ranks.command.setdisplay:
+    description: Set rank display name
+    default: op
