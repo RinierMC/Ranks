@@ -1,4 +1,4 @@
-# Ranks Plugin for PowerNukkitX
+# Ranks System 
 
 A complete rank management system for PowerNukkitX servers.  
 Players can have **one rank** at a time. Each rank can have:
