@@ -54,4 +54,8 @@ public class RanksAPI {
         if (prefix.isEmpty()) return player.getName();
         return prefix + " " + player.getName();
     }
+
+    public static void registerPlaceholderResolver(PlaceholderResolver resolver) {
+        RankManager.getInstance().registerPlaceholderResolver(resolver);
+    }
 }

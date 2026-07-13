@@ -16,7 +16,9 @@ public class RankChatListener implements Listener {
         if (rankName != null) {
             RankManager.Rank rank = manager.getRank(rankName);
             if (rank != null && !rank.getDisplayName().isEmpty()) {
-                String prefix = TextFormat.colorize(rank.getDisplayName().trim());
+                String raw = rank.getDisplayName().trim();
+                String replaced = manager.replacePlaceholders(raw, player);
+                String prefix = TextFormat.colorize(replaced);
                 event.setFormat(prefix + " " + TextFormat.RESET + player.getName() + " - " + event.getMessage());
             }
         }

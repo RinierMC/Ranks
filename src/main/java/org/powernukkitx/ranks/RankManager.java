@@ -97,6 +97,30 @@ public class RankManager {
         playerConfig.save();
     }
 
+    private final List<PlaceholderResolver> resolvers = new ArrayList<>();
+
+    public void registerPlaceholderResolver(PlaceholderResolver resolver) {
+        resolvers.add(resolver);
+    }
+
+    public String replacePlaceholders(String text, Player player) {
+        if (text == null || text.isEmpty()) return text;
+        String result = text;
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("\\{([^}]+)\\}").matcher(text);
+        while (m.find()) {
+            String tag = m.group(1);
+            String replacement = null;
+            for (PlaceholderResolver resolver : resolvers) {
+                replacement = resolver.resolve(tag, player);
+                if (replacement != null) break;
+            }
+            if (replacement != null) {
+                result = result.replace("{" + tag + "}", replacement);
+            }
+        }
+        return result;
+    }
+
     public boolean createRank(String name) {
         if (ranks.containsKey(name)) return false;
         ranks.put(name, new Rank(name, new ArrayList<>(), false, ""));
@@ -174,18 +198,19 @@ public class RankManager {
 
         String rankName = playerRank.get(uuid);
         Rank rank = rankName != null ? ranks.get(rankName) : null;
-        String prefix = "";
+        String rawPrefix = "";
         if (rank != null) {
-            for (String perm : rank.permissions) {
-                attachment.setPermission(perm, true);
-            }
             if (!rank.displayName.isEmpty()) {
-                prefix = TextFormat.colorize(rank.displayName).trim();
+                rawPrefix = rank.displayName;
             }
+        }
+        String prefix = "";
+        if (!rawPrefix.isEmpty()) {
+            String replaced = replacePlaceholders(rawPrefix, player);
+            prefix = TextFormat.colorize(replaced).trim();
         }
 
         String displayName = prefix.isEmpty() ? player.getName() : prefix + " " + player.getName();
-        player.setDisplayName(displayName);
         player.setNameTag(displayName);
     }
 
