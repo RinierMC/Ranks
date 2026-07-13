@@ -138,7 +138,7 @@ Then implement `PlaceholderResolver`:
 
 ```java
 import org.powernukkitx.Player;
-import org.powernukkitx.ranks.placeholder.PlaceholderResolver;
+import org.powernukkitx.ranks.PlaceholderResolver;
 
 public class MyPlaceholderResolver implements PlaceholderResolver {
     @Override
@@ -186,7 +186,7 @@ private void registerPlaceholderResolver() {
 
         ClassLoader ranksClassLoader = ranksPlugin.getClass().getClassLoader();
         Class<?> ranksApiClass = Class.forName("org.powernukkitx.ranks.RanksAPI", true, ranksClassLoader);
-        Class<?> resolverInterface = Class.forName("org.powernukkitx.ranks.placeholder.PlaceholderResolver", true, ranksClassLoader);
+        Class<?> resolverInterface = Class.forName("org.powernukkitx.ranks.PlaceholderResolver", true, ranksClassLoader);
         Method registerMethod = ranksApiClass.getMethod("registerPlaceholderResolver", resolverInterface);
 
         // Create a dynamic proxy that implements PlaceholderResolver
